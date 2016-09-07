@@ -97,15 +97,7 @@ public class Reflect {
      * @return Whether the mask contains the flags.
      */
     static boolean hasFlags(int mask, int flags) {
-        int high = 0;
-        while (Math.pow(2, high + 1) - 1 < flags)
-            high++;
-        for (int i = 0; i <= high; i++) {
-            int bit = 1 << i;
-            if (((bit & flags) != 0) && ((bit & mask) == 0))
-                return false;
-        }
-        return true;
+        return mask & flags == flags;
     }
 
     /**
