@@ -2,8 +2,10 @@ package io.github.phantamanta44.nomreflect;
 
 import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -30,9 +32,13 @@ public class MethodFilter extends MemberFilter<Method> {
 
     @Override
     Stream<Method> accumulate() {
-        Set<Class> types = new HashSet<>();
-        getScanner().matchAllClasses(types::add).scan();
-        return types.stream().flatMap(t -> Arrays.stream(t.getDeclaredMethods()));
+        Set<Method> methods = new HashSet<>();
+        getScanner().scan().getNamesOfAllClasses().forEach(cn -> {
+            try {
+                Collections.addAll(methods, Class.forName(cn).getDeclaredMethods());
+            } catch (NoClassDefFoundError | ClassNotFoundException | ExceptionInInitializerError ignored) { }
+        });
+        return methods.stream();
     }
 
     /**
@@ -86,7 +92,7 @@ public class MethodFilter extends MemberFilter<Method> {
      * @return A new pipeline that filters out invalid methods.
      */
     public MethodFilter tagged(Class<?>... annotations) {
-        return new MethodFilter(this, m -> Reflect.containsAll(m.getAnnotations(), (Object[])annotations));
+        return new MethodFilter(this, m -> Arrays.stream(annotations).allMatch(a -> m.isAnnotationPresent((Class<? extends Annotation>)a)));
     }
 
 }

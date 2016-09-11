@@ -2,8 +2,10 @@ package io.github.phantamanta44.nomreflect;
 
 import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -30,9 +32,13 @@ public class FieldFilter extends MemberFilter<Field> {
 
     @Override
     Stream<Field> accumulate() {
-        Set<Class> types = new HashSet<>();
-        getScanner().matchAllClasses(types::add).scan();
-        return types.stream().flatMap(t -> Arrays.stream(t.getDeclaredFields()));
+        Set<Field> fields = new HashSet<>();
+        getScanner().scan().getNamesOfAllClasses().forEach(cn -> {
+            try {
+                Collections.addAll(fields, Class.forName(cn).getDeclaredFields());
+            } catch (NoClassDefFoundError | ClassNotFoundException | ExceptionInInitializerError ignored) { }
+        });
+        return fields.stream();
     }
 
     /**
@@ -68,7 +74,7 @@ public class FieldFilter extends MemberFilter<Field> {
      * @return A new pipeline that filters out invalid fields.
      */
     public FieldFilter tagged(Class<?>... annotations) {
-        return new FieldFilter(this, m -> Reflect.containsAll(m.getAnnotations(), (Object[])annotations));
+        return new FieldFilter(this, f -> Arrays.stream(annotations).allMatch(a -> f.isAnnotationPresent((Class<? extends Annotation>)a)));
     }
 
     /**

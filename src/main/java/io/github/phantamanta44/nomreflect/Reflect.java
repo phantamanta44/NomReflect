@@ -2,12 +2,13 @@ package io.github.phantamanta44.nomreflect;
 
 import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
 
+import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
+import java.util.stream.Stream;
 
 public class Reflect {
 
@@ -16,7 +17,7 @@ public class Reflect {
      * @return A {@link TypeFilter} that matches all loaded classes.
      */
     public static TypeFilter types() {
-        return new TypeFilter(new FastClasspathScanner(getClassloaderUrls()));
+        return new TypeFilter(new FastClasspathScanner(getJavaClasspathUrls()));
     }
 
     /**
@@ -24,7 +25,7 @@ public class Reflect {
      * @return A {@link MethodFilter} that matches all loaded methods.
      */
     public static MethodFilter methods() {
-        return new MethodFilter(new FastClasspathScanner(getClassloaderUrls()));
+        return new MethodFilter(new FastClasspathScanner(getJavaClasspathUrls()));
     }
 
     /**
@@ -32,7 +33,7 @@ public class Reflect {
      * @return A {@link FieldFilter} that matches all loaded fields.
      */
     public static FieldFilter fields() {
-        return new FieldFilter(new FastClasspathScanner(getClassloaderUrls()));
+        return new FieldFilter(new FastClasspathScanner(getJavaClasspathUrls()));
     }
 
     /**
@@ -97,7 +98,7 @@ public class Reflect {
      * @return Whether the mask contains the flags.
      */
     static boolean hasFlags(int mask, int flags) {
-        return mask & flags == flags;
+        return (mask & flags) == flags;
     }
 
     /**
@@ -142,7 +143,41 @@ public class Reflect {
                 loader = loader.getParent();
             }
         }
-        return urls.stream().map(URL::toExternalForm).toArray(String[]::new);
+        return urls.stream().flatMap(Reflect::packagesFrom).toArray(String[]::new);
+    }
+
+    /**
+     * Utility function that gets all packages in the Java classpath.
+     * @return The packages retrieved.
+     */
+    private static String[] getJavaClasspathUrls() {
+        Set<URL> urls = new HashSet<>();
+        for (String path : System.getProperty("java.class.path").split(File.pathSeparator)) {
+            try {
+                urls.add(new File(path).toURI().toURL());
+            } catch (Exception ignored) { }
+        }
+        return urls.stream().flatMap(Reflect::packagesFrom).toArray(String[]::new);
+    }
+
+    /**
+     * Utility function that retrieves all packages in a jarfile.
+     * @param path URL locating the jartile.
+     * @return The packages retrieved.
+     */
+    private static Stream<String> packagesFrom(URL path) {
+        try {
+            List<String> packages = new ArrayList<>();
+            Enumeration<JarEntry> entries = new JarFile(path.getFile()).entries();
+            while (entries.hasMoreElements()) {
+                JarEntry entry = entries.nextElement();
+                if (entry.isDirectory() && !entry.getName().startsWith("META-INF/") && !entry.getName().startsWith("java/"))
+                    packages.add(entry.getName().replace('/', '.'));
+            }
+            return packages.stream().map(s -> s.substring(0, s.length() - 1));
+        } catch (Exception e) {
+            return Stream.of();
+        }
     }
 
 }
