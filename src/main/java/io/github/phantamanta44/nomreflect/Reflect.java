@@ -111,24 +111,6 @@ public class Reflect {
     }
 
     /**
-     * Utility function that checks if an array contains at least all the elements of another array.
-     * @param container The array to check for elements.
-     * @param objects The array of elements to check for.
-     * @return Whether the array contains the elements.
-     */
-    static boolean containsAll(Object[] container, Object... objects) {
-        return Arrays.asList(container).containsAll(Arrays.asList(objects));
-    }
-
-    /**
-     * Utility function that gets all URLs from the current thread's {@link URLClassLoader}.
-     * @return The URLs, mapped to strings.
-     */
-    private static String[] getClassloaderUrls() {
-        return getClassloaderUrls(Thread.currentThread().getContextClassLoader());
-    }
-
-    /**
      * Utility function that gets all URLs from the provided {@link URLClassLoader}s.
      * @param loaders ClassLoaders to get URLs from.
      * @return The URLs, mapped to strings.

@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2d87e6be-0eae-4007-a1ab-52e66f9c695f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/phantamanta44/nomreflect/FieldFilter.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/phantamanta44/nomreflect/FieldFilter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/phantamanta44/nomreflect/MethodFilter.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/phantamanta44/nomreflect/MethodFilter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/phantamanta44/nomreflect/Reflect.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/phantamanta44/nomreflect/Reflect.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/phantamanta44/nomreflect/TypeFilter.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/phantamanta44/nomreflect/TypeFilter.java" />
     </list>
     <ignored path="NomReflect.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,11 +24,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
-      <file leaf-file-name="MemberFilter.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/io/github/phantamanta44/nomreflect/MemberFilter.java">
+      <file leaf-file-name="Reflect.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/io/github/phantamanta44/nomreflect/Reflect.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="40" column="24" selection-start-line="40" selection-start-column="24" selection-end-line="40" selection-end-column="24" />
+            <state relative-caret-position="-318">
+              <caret line="110" column="5" selection-start-line="110" selection-start-column="5" selection-end-line="110" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -62,10 +57,10 @@
         <option value="$PROJECT_DIR$/src/main/java/io/github/phantamanta44/nomreflect/Utils.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/phantamanta44/nomreflect/MemberFilter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/github/phantamanta44/nomreflect/Reflect.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/phantamanta44/nomreflect/MethodFilter.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/phantamanta44/nomreflect/TypeFilter.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/phantamanta44/nomreflect/FieldFilter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/io/github/phantamanta44/nomreflect/Reflect.java" />
       </list>
     </option>
   </component>
@@ -513,10 +508,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3993">
           <caret line="140" column="43" selection-start-line="140" selection-start-column="43" selection-end-line="140" selection-end-column="43" />
-          <folding>
-            <element signature="e#3820#3821#0" expanded="true" />
-            <element signature="e#3866#3867#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -585,21 +577,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/phantamanta44/nomreflect/Reflect.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3609">
-          <caret line="178" column="31" selection-start-line="178" selection-start-column="31" selection-end-line="178" selection-end-column="31" />
-          <folding>
-            <element signature="e#3820#3821#0" expanded="true" />
-            <element signature="e#3866#3867#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/github/phantamanta44/nomreflect/MemberFilter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
           <caret line="40" column="24" selection-start-line="40" selection-start-column="24" selection-end-line="40" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/phantamanta44/nomreflect/Reflect.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-318">
+          <caret line="110" column="5" selection-start-line="110" selection-start-column="5" selection-end-line="110" selection-end-column="5" />
           <folding />
         </state>
       </provider>
