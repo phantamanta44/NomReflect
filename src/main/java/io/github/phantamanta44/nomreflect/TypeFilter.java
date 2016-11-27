@@ -3,6 +3,7 @@ package io.github.phantamanta44.nomreflect;
 import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -37,6 +38,14 @@ public class TypeFilter extends MemberFilter<Class<?>> {
             } catch (NoClassDefFoundError | ClassNotFoundException | ExceptionInInitializerError ignored) { }
         });
         return types.stream();
+    }
+
+    /**
+     * Checks if types are classes.
+     * @return A new pipeline that filters out invalid types.
+     */
+    public TypeFilter classes() {
+        return new TypeFilter(this, c -> !c.isInterface() && !c.isEnum());
     }
 
     /**
@@ -89,6 +98,14 @@ public class TypeFilter extends MemberFilter<Class<?>> {
      */
     public TypeFilter name(String name) {
         return new TypeFilter(this, t -> t.getName().equals(name));
+    }
+
+    /**
+     * Checks if types are non-abstract (i.e. not an interface and not abstract).
+     * @return A new pipeline that filters out invalid types.
+     */
+    public TypeFilter nonAbstract() {
+        return new TypeFilter(this, t -> !(t.isInterface() || Reflect.hasFlags(t.getModifiers(), Modifier.ABSTRACT)));
     }
 
     /**

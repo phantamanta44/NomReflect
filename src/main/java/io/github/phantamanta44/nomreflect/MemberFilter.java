@@ -22,7 +22,7 @@ abstract class MemberFilter<M> {
     MemberFilter(FastClasspathScanner scanner) {
         this.parent = null;
         this.test = m -> true;
-        this.scanner = scanner;
+        this.scanner = scanner.strictWhitelist();
     }
 
     /**
